@@ -1,0 +1,18 @@
+*,::before,::after{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+/*
+覆盖
+ */
+:root{
+    --el-border-color:#fb929e;
+    --el-color-primary: #FF4949FF;
+    --el-border-color-hover:#FF4949FF;
+    --th-header:#ffdfdf ;
+    --th-main:#fb929e;
+    --th-footer:#6dd7da;
+
+}
+
