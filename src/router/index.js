@@ -8,9 +8,7 @@ const routes = [
             { path: 'desktop',  component: ()=>import("../components/desktop/comp/DesktopMain.vue") },
             { path: 'desk-attheme', component:()=> import("../components/desktop/comp/AthemeMain.vue") },
             {path: 'tm',component: ()=> import("@/components/desktop/comp/ThemeMake.vue")},
-            {path: 'tp',component: ()=>import( "@/components/desktop/comp/ThemeOp.vue")}
-        ],
-
+        ]
     }
   ]
   

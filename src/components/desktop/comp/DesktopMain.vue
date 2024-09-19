@@ -21,11 +21,12 @@ const click_img=(name)=>{
 
   <el-row >
 
-    <el-col :span="6" :xs="24" v-for="x in arr">
+    <el-col :span="8" :xs="24" v-for="x in arr">
       <div class="item-ele" >
         <div class="img-div" >
           <el-image
-              style="border-radius: 2%;"
+              class="e-image"
+              style="border-radius: 8%;"
               :src="getUrl(`orgin`)+'/'+x[1]"
               alt="not found"
               @click="click_img(x[0])"
@@ -49,9 +50,13 @@ const click_img=(name)=>{
 
 <style scoped>
 
+.e-image{
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+}
 
 .img-div {
-  padding: 3px;
+  padding: 50px;
   transition: opacity 0.5s; /* 添加过渡效果 */
 }
 

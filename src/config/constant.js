@@ -2,9 +2,9 @@ let main;
 let ormain;
 
 if (process.env.NODE_ENV === "production")
-    ormain = "https://www.yusifmorley.com";
+    ormain = "";
 else
-    ormain = "http://192.168.128.13:8080";
+    ormain = "http://127.0.0.1:8080";
 
 main = ormain + "/theme";
 

@@ -44,10 +44,10 @@ watch(theme_type,async (n,_)=>{
 <template>
   <div class="td-layout">
     <el-container>
+      <div id="header-div">
       <el-header>
         <el-row>
           <el-col :span="2">
-
             <div id="avat">
               <a  href="https://t.me/zhuti123" target="_blank" >
                 <el-avatar :size="50" src="./src/assets/avator.jpg" />
@@ -65,7 +65,7 @@ watch(theme_type,async (n,_)=>{
           </el-col >
           <el-col :span="3">
             <div id="select_div">
-              <el-select  v-model="theme_type"  id="second_select" >
+              <el-select size="large" v-model="theme_type"  id="second_select" >
                 <el-option label="桌面主题" value="0" />
                 <el-option label="安卓主题" value="1" />
 <!--                <el-option label="桌面主题制作" value="2"/>-->
@@ -73,6 +73,7 @@ watch(theme_type,async (n,_)=>{
               </el-select>
             </div>
           </el-col>
+          <el-col :span="1"></el-col>
           <el-col :span="1">
             <div id="icon">
               <a  href="https://github.com/yusifmorley/TelegramBot" target="_blank" >
@@ -83,22 +84,20 @@ watch(theme_type,async (n,_)=>{
             </div>
 
           </el-col>
-          <el-col :span="1">
-            <div id="switch_color">
-              <el-switch
-                  style="--el-switch-on-color: #63726a; --el-switch-off-color: #ff4949"
-                  size="large"
-                  v-model="darken"
-                  :active-action-icon="Moon"
-                  :inactive-action-icon="Sunny"
-              />
-            </div>
-          </el-col>
+<!--          <el-col :span="1">-->
+<!--            <div id="switch_color">-->
+<!--              <el-switch-->
+<!--                  style="&#45;&#45;el-switch-on-color: #63726a; &#45;&#45;el-switch-off-color: #ff4949"-->
+<!--                  size="large"-->
+<!--                  v-model="darken"-->
+<!--                  :active-action-icon="Moon"-->
+<!--                  :inactive-action-icon="Sunny"-->
+<!--              />-->
+<!--            </div>-->
+<!--          </el-col>-->
         </el-row>
-
-
       </el-header>
-
+      </div>
       <el-main >
         <router-view v-slot="{ Component }">
           <keep-alive>
@@ -120,17 +119,17 @@ watch(theme_type,async (n,_)=>{
   </div>
 </template>
 <style scoped >
-
 .el-header{
   text-align: center; /*设置文本水平居中*/
-
   background-color: var(--th-main);
+  box-shadow:var(--bor-dark); /* 阴影效果 */
+
 }
 
 .el-main{
-//width: 100vw;
-  background-color: var(--th-header);
+  background-color: var(--th-main);
   overflow: hidden;
+
 }
 
 .el-footer{
@@ -157,4 +156,9 @@ watch(theme_type,async (n,_)=>{
 #foot_block{
   margin-top: 20px;
 }
+#header-div{
+  padding-right: 20px;
+  padding-bottom: 20px;
+}
+
 </style>

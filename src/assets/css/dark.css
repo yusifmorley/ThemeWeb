@@ -7,4 +7,5 @@ html.dark{
     --th-main:black;
     --th-footer:#0d595d;
     --el-border-color-hover:white;
+    --bor-dark:0 0.5rem 1rem rgba(255, 0, 0, 1), inset 0 -1px 0 rgba(255, 255, 255, 0.4);
 }

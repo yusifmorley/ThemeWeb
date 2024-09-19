@@ -19,11 +19,10 @@ const click_img=(name)=>{
 </script>
 
 <template>
-
+<div id="container">
   <el-header>
     <el-row>
       <el-col :span="2">
-
         <div id="avat">
           <a  href="https://t.me/zhuti123" target="_blank" >
             <el-avatar :size="38" src="./src/assets/avator.jpg" />
@@ -53,44 +52,59 @@ const click_img=(name)=>{
 
     </el-row>
   </el-header>
+</div>
+
   <el-main>
-    <div class="img-div"  v-for="x of arr">
-      <el-image
-          style="border-radius: 2%;"
-          :src="getUrl(`orgin`)+'/'+x[1]"
-          alt="not found"
-          @click="click_img(x[0])"
-      />
-    </div>
+    <el-row>
+      <el-col :span="24" v-for="x of arr">
+
+          <div class="img-div"  >
+            <el-image
+                class="e-image"
+                style="border-radius: 8%"
+                :src="getUrl(`orgin`)+'/'+x[1]"
+                alt="not found"
+                @click="click_img(x[0])"
+            />
+          </div>
+        </el-col>
+    </el-row>
 
   </el-main>
+
   <el-footer>
-    <div id="foot_block">
-      <h3 style="text-align: center" v-for="(v,k) in themeChannel">
-        {{k}} <el-link :href="v" target="_blank" >{{v}}</el-link>
-      </h3>
+    <div id="footer">
+      <h3 style="color: #0d595d">到底了....</h3>
     </div>
 
   </el-footer>
 </template>
 
 <style scoped>
-
+#container{
+  padding-right: 3%;
+  padding-bottom: 3%;
+}
 .el-main{
-  //width: 100vw;
   background-color: var(--th-main);
   overflow: hidden;
-}
-.el-footer{
-  height: 32vh;
-  background-color: var(--th-footer);
 
+}
+
+.el-footer{
+  background-color: var(--th-footer);
 }
 
 .el-header{
   text-align: center; /*设置文本水平居中*/
-  background-color: var(--th-header);
+
   --el-header-height: 46px;
+  box-shadow:var(--bor-dark); /* 阴影效果 */
+}
+
+.e-image{
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
 }
 
 #title{
@@ -102,5 +116,12 @@ const click_img=(name)=>{
 #avat{
   padding: 0.3em;
 }
-
+.img-div{
+  padding: 5%;
+  margin-right: 1vw;
+}
+#footer{
+  padding: 2vh;
+  height: 5vh;
+}
 </style>

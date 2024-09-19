@@ -6,7 +6,7 @@ import viteCompression from 'vite-plugin-compression'
 export default defineConfig({
   server: {
     port: 5173, // 设置自定义端口号
-    host:"192.168.128.13"
+    host:"127.0.0.1"
   },
   plugins: [vue(),
     viteCompression({
