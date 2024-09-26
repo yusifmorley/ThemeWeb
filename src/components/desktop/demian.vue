@@ -68,8 +68,8 @@ watch(theme_type,async (n,_)=>{
               <el-select size="large" v-model="theme_type"  id="second_select" >
                 <el-option label="桌面主题" value="0" />
                 <el-option label="安卓主题" value="1" />
-<!--                <el-option label="桌面主题制作" value="2"/>-->
-<!--                <el-option  label="主题优化" value="3"/>-->
+                <el-option label="桌面主题制作(旧)" value="2"/>
+                <el-option  label="主题制作(新)" value="3"/>
               </el-select>
             </div>
           </el-col>

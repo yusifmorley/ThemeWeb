@@ -7,7 +7,7 @@ onMounted(async ()=>{
     if(isMobile()){
      await router.push("/attheme")
     }else {
-     await router.push("/desk/desktop")
+     await router.push("/desk/tp")
     }
 })
 </script>

@@ -2,15 +2,14 @@
 import {onMounted, reactive} from "vue";
 import myAxios from "@/config/my-axios.js";
 import {botUrl, getUrl} from "@/config/constant.js";
-import {themeChannel} from "@/config/theme-constant.js";
 
 let arr=reactive([]);
 onMounted(async ()=>{
   await myAxios.get(getUrl("attheme")).then(e=>{
     arr.push(...e.data.data)
   })
-
 })
+
 const click_img=(name)=>{
   name=name.substring(0,64)
   window.open(botUrl(name),'_blank')
