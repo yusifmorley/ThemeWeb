@@ -178,12 +178,17 @@ const submit=async ()=> {
   })
 }
 function randomString(length) {
-  var str = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-  var result = '';
+  let str = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  let result = '';
   for (var i = length; i > 0; --i)
     result += str[Math.floor(Math.random() * str.length)];
   return result;
 }
+
+function seek(num:number) {
+  colorPicker.color.hsl = { h: num, s: 100, l: 50 };
+}
+
 </script>
 
 <template>
@@ -200,16 +205,16 @@ function randomString(length) {
         </el-select>
       </el-col>
 
-      <el-col :span="5"  >
+      <el-col :span="6"  >
         图片突出色:<br/>
-        {{arrs[0][0]*360}}<br/>
-        {{arrs[1][0]*360}}<br/>
-        {{arrs[2][0]*360}}<br/>
-        {{arrs[3][0]*360}}<br/>
-        {{arrs[4][0]*360}}
+        <el-button :style="{'background-color':`hsl(${arrs[0][0]*360}deg 75% 75%)`}" @click="seek(Math.floor(arrs[0][0]*360))" >{{Math.floor(arrs[0][0]*360)}}</el-button>
+        <el-button :style="{'background-color':`hsl(${arrs[1][0]*360}deg 75% 75%)`}" @click="seek(Math.floor(arrs[1][0]*360))">{{Math.floor(arrs[1][0]*360)}}</el-button>
+        <el-button :style="{'background-color':`hsl(${arrs[2][0]*360}deg 75% 75%)`}" @click="seek(Math.floor(arrs[2][0]*360))">{{Math.floor(arrs[2][0]*360)}}</el-button>
+        <el-button :style="{'background-color':`hsl(${arrs[3][0]*360}deg 75% 75%)`}" @click="seek(Math.floor(arrs[3][0]*360))">{{Math.floor(arrs[3][0]*360)}}</el-button>
+        <el-button :style="{'background-color':`hsl(${arrs[4][0]*360}deg 75% 75%)`}" @click="seek(Math.floor(arrs[4][0]*360))">{{Math.floor(arrs[4][0]*360)}}</el-button>
       </el-col>
 
-      <el-col :span="3"  >
+      <el-col :span="2"  >
       </el-col>
 
       <el-col :span="3"  >
