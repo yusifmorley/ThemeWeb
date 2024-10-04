@@ -31,9 +31,9 @@ watch(theme_type,async (n,_)=>{
   if (n==="1"){
     await router.push("desk-attheme")
   }
-  if (n==="2"){
-    await router.push("tm")
-  }
+  // if (n==="2"){
+  //   await router.push("tm")
+  // }
   if (n==="3"){
     await router.push("tp")
   }
@@ -68,8 +68,7 @@ watch(theme_type,async (n,_)=>{
               <el-select size="large" v-model="theme_type"  id="second_select" >
                 <el-option label="桌面主题" value="0" />
                 <el-option label="安卓主题" value="1" />
-                <el-option label="桌面主题制作(旧)" value="2"/>
-                <el-option  label="主题制作(新)" value="3"/>
+                <el-option  label="主题制作" value="3"/>
               </el-select>
             </div>
           </el-col>

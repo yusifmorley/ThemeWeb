@@ -5,7 +5,8 @@ import download from "downloadjs";
 import { useBase64 } from '@vueuse/core'
 import {ElMessage} from "element-plus";
 import iro from '@jaames/iro';
-
+import Vibrant from "node-vibrant/dist/vibrant.worker.js";
+let  arrs=ref([[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0]])
 let colorPicker;
 let serverUrl
 if (process.env.NODE_ENV === "production"){
@@ -111,6 +112,35 @@ watch(fileBase64,()=>{
 //当前图片对象
 //图片地址
 const img=ref()
+const imgi=ref(null)
+
+let palette
+watch(img,(newVal, oldVal) => {
+  let img1 = new Image(); // Image 构造器
+  img1.src=img.value
+
+if (img.value!==null){
+     Vibrant.from(img1).quality(10).getPalette().then(palette=>{
+      arrs.value=[palette.Vibrant.hsl,
+         //@ts-ignore
+         palette.LightVibrant.hsl,
+         //@ts-ignore
+         palette.DarkVibrant.hsl,
+         //@ts-ignore
+         palette.DarkMuted.hsl,
+         //@ts-ignore
+         palette.Muted.hsl
+       ];
+       console.log(arrs)
+
+    })
+
+}
+
+})
+
+
+
 const submit=async ()=> {
   console.log(img.value)
   if (colors.value=="")
@@ -171,6 +201,18 @@ function randomString(length) {
       </el-col>
 
       <el-col :span="5"  >
+        图片突出色:<br/>
+        {{arrs[0][0]*360}}<br/>
+        {{arrs[1][0]*360}}<br/>
+        {{arrs[2][0]*360}}<br/>
+        {{arrs[3][0]*360}}<br/>
+        {{arrs[4][0]*360}}
+      </el-col>
+
+      <el-col :span="3"  >
+      </el-col>
+
+      <el-col :span="3"  >
         目标突出色: {{colors}}
       </el-col>
 
@@ -216,7 +258,7 @@ function randomString(length) {
       <el-col :span="3"></el-col>
       <el-col :span="8">
         <div id="container">
-          <img id="preview" :src="img"/>
+          <img id="preview" :src="img" :ref="imgi"/>
         </div>
       </el-col>
       <el-col :span="5" >
