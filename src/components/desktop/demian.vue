@@ -132,7 +132,7 @@ watch(theme_type,async (n,_)=>{
 }
 
 .el-footer{
-  height: 30vh;
+  height: 15vh;
   background-color: var(--th-footer);
 
 }

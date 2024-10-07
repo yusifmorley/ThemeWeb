@@ -249,7 +249,7 @@ function seek(num:number) {
       <el-col :span="2"  >
       </el-col>
 
-      <el-col :span="3"  >
+      <el-col :span="4"  >
         聊天消息透明度(Alpha): {{ alpha}}<br/>
         目标突出色(Hue): {{ colors }}<br/>
         饱和度(Saturation): {{ targetS }}<br/>
