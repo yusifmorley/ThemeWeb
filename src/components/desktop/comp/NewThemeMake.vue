@@ -7,8 +7,11 @@ import {ElMessage} from "element-plus";
 import iro from '@jaames/iro';
 import Vibrant from "node-vibrant/dist/vibrant.worker.js";
 let  arrs=ref([[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0]])
+let alpha=ref(0.618)
 let colorPicker;
 let serverUrl
+let targetL=ref(100)
+let targetS=ref(100)
 if (process.env.NODE_ENV === "production"){
   serverUrl="https://www.yusme.link:3000"
 }
@@ -26,11 +29,37 @@ onBeforeMount( async ()=> {
         // Set the size of the color picker
         width: 320,
         // Set the initial color to pure red
+        layout: [
+          {
+            component: iro.ui.Wheel,
+            options: {}
+          },
 
+
+          {
+            component: iro.ui.Slider,
+            options: {
+              // can also be 'saturation', 'value', 'red', 'green', 'blue', 'alpha' or 'kelvin'
+              sliderType: 'value'
+            }
+          },
+          {
+            component: iro.ui.Slider,
+            options: {
+              // can also be 'saturation', 'value', 'red', 'green', 'blue', 'alpha' or 'kelvin'
+              sliderType: 'alpha'
+            }
+          }
+
+        ]
       });
-
+      //初始化建议
+      colorPicker.color.hsla={h:colors.value,l:targetL.value,s:targetS.value, a:alpha.value }
       colorPicker.on('color:change', function(color) {
-        colors.value=color.hsl.h
+        colors.value=color.hsla.h
+        targetL.value=color.hsla.l
+        targetS.value=color.hsla.s
+        alpha.value=color.hsla.a
       });
     }
 )
@@ -99,7 +128,7 @@ const getPhotoUrl=computed(()=>{
     }
   }
 })
-const colors = ref("");
+const colors = ref(-1);
 const previewFiles = () => {
   //@ts-ignore
   img.value=URL.createObjectURL(event.target.files[0])
@@ -142,8 +171,8 @@ if (img.value!==null){
 
 
 const submit=async ()=> {
-  console.log(img.value)
-  if (colors.value=="")
+  //console.log(img.value)
+  if (colors.value==-1)
   {
     ElMessage.warning("目标色为空!")
     return;
@@ -161,6 +190,9 @@ const submit=async ()=> {
     type:type.value?"white":"black",
     moudle:moudle.value,
     hue:colors.value,
+    sat:targetS.value,
+    lig:targetL.value,
+    alpha:alpha.value,
     pic:pbase
   }, {
     responseType: 'blob',
@@ -206,7 +238,7 @@ function seek(num:number) {
       </el-col>
 
       <el-col :span="6"  >
-        图片突出色:<br/>
+        图片突出色(Hue):<br/>
         <el-button :style="{'background-color':`hsl(${arrs[0][0]*360}deg 75% 75%)`}" @click="seek(Math.floor(arrs[0][0]*360))" >{{Math.floor(arrs[0][0]*360)}}</el-button>
         <el-button :style="{'background-color':`hsl(${arrs[1][0]*360}deg 75% 75%)`}" @click="seek(Math.floor(arrs[1][0]*360))">{{Math.floor(arrs[1][0]*360)}}</el-button>
         <el-button :style="{'background-color':`hsl(${arrs[2][0]*360}deg 75% 75%)`}" @click="seek(Math.floor(arrs[2][0]*360))">{{Math.floor(arrs[2][0]*360)}}</el-button>
@@ -218,7 +250,10 @@ function seek(num:number) {
       </el-col>
 
       <el-col :span="3"  >
-        目标突出色: {{colors}}
+        聊天消息透明度(Alpha): {{ alpha}}<br/>
+        目标突出色(Hue): {{ colors }}<br/>
+        饱和度(Saturation): {{ targetS }}<br/>
+        亮度( Lightness): {{ targetL }}
       </el-col>
 
     </el-row>
