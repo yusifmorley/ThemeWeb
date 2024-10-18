@@ -23,7 +23,7 @@ const click_img=(name)=>{
     <el-row>
       <el-col :span="2">
         <div id="avat">
-          <a  href="https://t.me/zhuti123" target="_blank" >
+          <a  href="https://t.me/morleydim" target="_blank" >
             <el-avatar :size="38" src="./src/assets/avator.jpg" />
           </a>
         </div>

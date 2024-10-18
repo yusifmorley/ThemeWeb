@@ -160,7 +160,7 @@ if (img.value!==null){
          //@ts-ignore
          palette.Muted.hsl
        ];
-       console.log(arrs)
+       console.log(arrs.value)
 
     })
 
@@ -217,8 +217,9 @@ function randomString(length) {
   return result;
 }
 
-function seek(num:number) {
-  colorPicker.color.hsl = { h: num, s: 100, l: 50 };
+function seek(num:number[]) {
+  colorPicker.color.hsl = { h: num[0]*360, s: num[1]*100, l: num[2]*100 };
+  console.log(colorPicker.color.hsl);
 }
 
 </script>
@@ -238,12 +239,9 @@ function seek(num:number) {
       </el-col>
 
       <el-col :span="6"  >
-        图片突出色(Hue):<br/>
-        <el-button :style="{'background-color':`hsl(${arrs[0][0]*360}deg 75% 75%)`}" @click="seek(Math.floor(arrs[0][0]*360))" >{{Math.floor(arrs[0][0]*360)}}</el-button>
-        <el-button :style="{'background-color':`hsl(${arrs[1][0]*360}deg 75% 75%)`}" @click="seek(Math.floor(arrs[1][0]*360))">{{Math.floor(arrs[1][0]*360)}}</el-button>
-        <el-button :style="{'background-color':`hsl(${arrs[2][0]*360}deg 75% 75%)`}" @click="seek(Math.floor(arrs[2][0]*360))">{{Math.floor(arrs[2][0]*360)}}</el-button>
-        <el-button :style="{'background-color':`hsl(${arrs[3][0]*360}deg 75% 75%)`}" @click="seek(Math.floor(arrs[3][0]*360))">{{Math.floor(arrs[3][0]*360)}}</el-button>
-        <el-button :style="{'background-color':`hsl(${arrs[4][0]*360}deg 75% 75%)`}" @click="seek(Math.floor(arrs[4][0]*360))">{{Math.floor(arrs[4][0]*360)}}</el-button>
+        图片突出色(HSL):<br/>
+        <el-button v-for="x in arrs" :style="{'background-color':`hsl(${x[0]*360}deg ${x[1]*100}% ${x[2]*100}%)`}" @click="seek(x)" >{{Math.floor(arrs[0][0]*360)}}</el-button>
+
       </el-col>
 
       <el-col :span="2"  >
