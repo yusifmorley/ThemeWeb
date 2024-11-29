@@ -129,11 +129,22 @@ const getPhotoUrl=computed(()=>{
   }
 })
 const colors = ref(-1);
-const previewFiles = () => {
+const previewFiles = (e) => {
+  //img.value 当前显示的图片
+  let file= e.target.files[0]
+  console.log(file.size)
+  if(file.size>5_000_000){
+    ElMessage({
+      message: 'telegram主题不支持图片大小大于5MB的图像作为主题壁纸!',
+      type: 'error',
+      duration:4000,
+    })
+
+    return
+  }
+  img.value=URL.createObjectURL(file)
   //@ts-ignore
-  img.value=URL.createObjectURL(event.target.files[0])
-  //@ts-ignore
-  fileo.value=event.target.files[0]
+  fileo.value=file
 }
 watch(fileBase64,()=>{
   pbase = fileBase64.value
@@ -160,7 +171,7 @@ if (img.value!==null){
          //@ts-ignore
          palette.Muted.hsl
        ];
-       console.log(arrs.value)
+      // console.log(arrs.value)
 
     })
 
@@ -200,12 +211,12 @@ const submit=async ()=> {
       'Content-Type': 'application/json'
     }}).then(res=>{
     const { data, headers } = res
-    const fileName=randomString(10)
+    const fileName=randomString(5)
     const fileNameExten =  kind.value=="0"?".attheme":".tdesktop-theme"
     // 此处当返回json文件时需要先对data进行JSON.stringify处理，其他类型文件不用做处理
     //const blob = new Blob([JSON.stringify(data)], ...)
     const blob = new Blob([data], {type: headers['content-type']})
-    download(blob,fileName+fileNameExten)
+    download(blob,`${alpha.value}-${colors.value}-${targetS.value}-${targetL.value}-`+fileName+fileNameExten)
 
   })
 }
@@ -248,10 +259,10 @@ function seek(num:number[]) {
       </el-col>
 
       <el-col :span="4"  >
-        聊天消息透明度(Alpha): {{ alpha}}<br/>
-        目标突出色(Hue): {{ colors }}<br/>
-        饱和度(Saturation): {{ targetS }}<br/>
-        亮度( Lightness): {{ targetL }}
+        聊天消息透明度(Alpha):  <span class="ops-clo"> {{ alpha}} </span> <br/>
+        目标突出色(Hue):<span class="ops-clo" > {{ colors }} </span><br/>
+        饱和度(Saturation): <span class="ops-clo">{{ targetS }} </span><br/>
+        亮度( Lightness): <span class="ops-clo">{{ targetL }} </span>
       </el-col>
 
     </el-row>
@@ -281,7 +292,7 @@ function seek(num:number[]) {
       <el-col :span="5"></el-col>
       <el-col :span="8">
         <div class="imagePicker">
-          <input   @change="previewFiles"  type="file" />
+          <input   @change="previewFiles($event)"  type="file" />
         </div>
       </el-col>
     </el-row>
@@ -365,5 +376,9 @@ function seek(num:number[]) {
 }
 #picker{
   margin-bottom: 20vh;
+}
+.ops-clo{
+
+  color:rgb(106.8, 108.9, 113.1);
 }
 </style>
