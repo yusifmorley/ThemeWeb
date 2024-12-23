@@ -217,7 +217,7 @@ const submit=async ()=> {
     //const blob = new Blob([JSON.stringify(data)], ...)
     const blob = new Blob([data], {type: headers['content-type']})
     //TODO  指定模板名称
-    download(blob,`${alpha.value}-${colors.value}-${targetS.value}-${targetL.value}-`+fileName+fileNameExten)
+    download(blob,`${kind.value}-${type.value}-${moudle.value}-${alpha.value}-${colors.value}-${targetS.value}-${targetL.value}-`+fileName+fileNameExten)
 
   })
 }

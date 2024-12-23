@@ -74,7 +74,6 @@ watch(theme_type,async (n,_)=>{
           </el-col>
           <el-col :span="1">
             <el-tooltip
-
                 effect="dark"
                 content="主题教程"
                 placement="bottom"
