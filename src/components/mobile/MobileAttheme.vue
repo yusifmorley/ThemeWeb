@@ -2,12 +2,23 @@
 import {onMounted, reactive} from "vue";
 import myAxios from "@/config/my-axios.js";
 import {botUrl, getUrl} from "@/config/constant.js";
+import {ElMessage, ElMessageBox} from "element-plus";
 
 let arr=reactive([]);
 onMounted(async ()=>{
   await myAxios.get(getUrl("attheme")).then(e=>{
     arr.push(...e.data.data)
   })
+  await ElMessageBox.alert('若要制作主题，请使用电脑访问本网站', '温馨提示', {
+    // if you want to disable its autofocus
+    // autofocus: false,
+    confirmButtonText: '确定'
+    // callback: (action) => {
+    //   localStorage.setItem("showF", 1);
+    // },
+  })
+
+
 })
 
 const click_img=(name)=>{
