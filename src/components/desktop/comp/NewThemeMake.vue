@@ -241,13 +241,19 @@ function seek(num:number[]) {
   <el-main class="app">
     <el-row>
       <el-col :span="1">
-        <el-text >种类</el-text>
+        <div class="overPadding">
+        <div class="inFlag" >
+          <el-text >种类</el-text>
+        </div>
+        </div>
       </el-col>
       <el-col :span="10">
+        <div class="overPadding">
         <el-select v-model="kind" placeholder="Select" style="width: 240px">
           <el-option key="1" label="安卓" value="0" ></el-option>
           <el-option key="2" label="桌面" value="1"></el-option>
         </el-select>
+        </div>
       </el-col>
 
       <el-col :span="6"  >
@@ -268,9 +274,11 @@ function seek(num:number[]) {
 
     </el-row>
 
-    <el-row>
+    <el-row style="margin-bottom: 21px">
       <el-col :span="1" >
-        <el-text >黑/白</el-text>
+        <div class="inFlag">
+          <el-text >黑/白</el-text>
+        </div>
       </el-col>
       <el-col :span="6">
         <el-switch v-model="type" />
@@ -278,11 +286,12 @@ function seek(num:number[]) {
     </el-row>
 
     <el-row>
-      <el-col>
-        <el-text >可用模板</el-text>
+      <el-col :span="1">
+          <div class="inFlag">
+                  <el-text>模板</el-text>
+          </div>
       </el-col>
-
-      <el-col :span="6">
+      <el-col :span="5">
         <el-select v-model="moudle" placeholder="请选择" style="width: 240px">
           <el-option v-for="(e,i) in optionList"
                      :key="i"
@@ -313,11 +322,10 @@ function seek(num:number[]) {
       </el-col>
       <el-col :span="5" >
         <div id="picker"></div>
-        <div id="lcontan" >
-          <el-button id="buto" @click="submit">提交</el-button>
+        <div id="content" >
+          <el-button id="buTo" @click="submit">提交</el-button>
         </div>
       </el-col>
-
     </el-row>
   </el-main>
 </template>
@@ -325,7 +333,6 @@ function seek(num:number[]) {
 <style>
 
 :root{
-
   background-color: white;
 }
 
@@ -333,7 +340,9 @@ function seek(num:number[]) {
   width: 100%;
   overflow: hidden;
 }
-
+#picker{
+  min-height: 400px;
+}
 #input-file{
   opacity: 0;
 }
@@ -371,15 +380,21 @@ function seek(num:number[]) {
   overflow: hidden;
 }
 
-#buto{
-  margin-top: -156px;
+#buTo{
+  margin-top: -236px;
   margin-left: 10vw;
 }
 #picker{
   margin-bottom: 20vh;
 }
 .ops-clo{
-
   color:rgb(106.8, 108.9, 113.1);
+}
+.inFlag{
+  padding: 5px;
+}
+.overPadding{
+  padding-top: 20px;
+
 }
 </style>

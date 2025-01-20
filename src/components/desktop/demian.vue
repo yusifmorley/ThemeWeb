@@ -144,7 +144,7 @@ watch(theme_type,async (n,_)=>{
 .el-main{
   background-color: var(--th-main);
   overflow: hidden;
-
+   padding-top: 10px;
 }
 
 .el-footer{
@@ -173,7 +173,7 @@ watch(theme_type,async (n,_)=>{
 }
 #header-div{
   padding-right: 20px;
-  padding-bottom: 20px;
+  padding-bottom: 10px;
 }
 
 </style>
