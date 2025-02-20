@@ -2,11 +2,11 @@ let main;
 let ormain;
 
 if (process.env.NODE_ENV === "production")
-    ormain = "";
+    ormain = "https://www.yusme.link:3000";
 else
-    ormain = "http://127.0.0.1:8080";
+    ormain = "http://127.0.0.1:3000";
 
-main = ormain + "/theme";
+main = ormain;
 
 // 定义URL映射对象
 // 定义URL映射对象，所有属性名都放在引号内

@@ -7,7 +7,7 @@ import {ElMessage, ElMessageBox} from "element-plus";
 let arr=reactive([]);
 onMounted(async ()=>{
   await myAxios.get(getUrl("attheme")).then(e=>{
-    arr.push(...e.data.data)
+    arr.push(...e.data)
   })
   await ElMessageBox.alert('若要制作主题，请使用电脑访问本网站', '温馨提示', {
     // if you want to disable its autofocus
@@ -22,8 +22,8 @@ onMounted(async ()=>{
 })
 
 const click_img=(name)=>{
-  name=name.substring(0,64)
-  window.open(botUrl(name),'_blank')
+  name=name.split(".")[0]
+  window.open(botUrl(name+"A"),'_blank')
 }
 
 </script>

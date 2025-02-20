@@ -6,13 +6,13 @@ import {botUrl, getUrl} from "@/config/constant.js";
 let arr=ref([]);
 onMounted(async ()=>{
   await myAxios.get(getUrl("attheme")).then(e=>{
-    arr.value.push(...e.data.data)
+    arr.value.push(...e.data)
   })
 
 })
 const click_img=(name)=>{
-  name=name.substring(0,64)
-  window.open(botUrl(name),'_blank')
+  name=name.split(".")[0]
+  window.open(botUrl(name+"A"),'_blank')
 }
 </script>
 
