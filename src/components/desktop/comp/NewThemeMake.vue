@@ -3,15 +3,36 @@ import {computed, nextTick, onBeforeMount, ref, watch} from "vue";
 import axios from "axios";
 import download from "downloadjs";
 import { useBase64 } from '@vueuse/core'
-import {ElMessage} from "element-plus";
+import {Action, ElMessage, ElMessageBox} from "element-plus";
 import iro from '@jaames/iro';
 import Vibrant from "node-vibrant/dist/vibrant.worker.js";
 let  arrs=ref([[0,0,0],[0,0,0],[0,0,0],[0,0,0],[0,0,0]])
 let alpha=ref(0.618)
 let colorPicker;
-let serverUrl
+let serverUrl;
 let targetL=ref(100)
 let targetS=ref(100)
+
+let themeMap;
+let curThemeType=ref(0)
+let curThemeTypeEmessage=ref("")
+let isActive=computed(() => {
+ return curThemeType.value===1
+})
+const showThemeType = computed(() => {
+  switch (curThemeType.value) {
+    case 0:
+      curThemeTypeEmessage.value="主题由单一颜色组成";
+      return "Simple";
+    case 1:
+      curThemeTypeEmessage.value="主题由唯一颜色的H构成，但S、L可能不同。在依据此模板制作主题时，饱和度和亮度将无效！";
+      return "SimpleDifference";
+    case 2:
+      curThemeTypeEmessage.value="主题依据多种颜色构成";
+      return "SimpleDifference";
+  }
+
+})
 if (process.env.NODE_ENV === "production"){
   serverUrl="https://www.yusme.link:3000"
 }
@@ -25,6 +46,8 @@ let l=ref(null);
 onBeforeMount( async ()=> {
       let res=  await axios.get(`${serverUrl}/templete-info`)
       l.value= res.data
+      //反序列化 map
+      themeMap=new Map(JSON.parse(res.data.map));
       colorPicker=  iro.ColorPicker('#picker', {
         // Set the size of the color picker
         width: 320,
@@ -34,8 +57,6 @@ onBeforeMount( async ()=> {
             component: iro.ui.Wheel,
             options: {}
           },
-
-
           {
             component: iro.ui.Slider,
             options: {
@@ -50,7 +71,6 @@ onBeforeMount( async ()=> {
               sliderType: 'alpha'
             }
           }
-
         ]
       });
       //初始化建议
@@ -78,20 +98,21 @@ const { base64: fileBase64 } = useBase64(fileo)
 let pbase;
 const optionList=ref()
 
+watch(moudle,(newM)=>{
+ curThemeType.value=themeMap.get(newM)
+})
+
 
 watch([kind,type,l],([newk, newt])=>{
-
   moudle.value=`${type.value?'white':'black'}1`
   if(newk=="1"){
     if(newt==true){
       optionList.value= l.value.desktop_white
-
     }
     if(newt==false){
       optionList.value= l.value.desktop_black
     }
   }
-
   // 0为桌面
   if(newk=="0"){
     if(newt==true){
@@ -102,7 +123,6 @@ watch([kind,type,l],([newk, newt])=>{
     }
   }
 })
-
 //选项 计算
 
 // 图片地址生成器
@@ -139,7 +159,6 @@ const previewFiles = (e) => {
       type: 'error',
       duration:4000,
     })
-
     return
   }
   img.value=URL.createObjectURL(file)
@@ -179,7 +198,19 @@ if (img.value!==null){
 
 })
 
-
+const expressType=()=>{
+  ElMessageBox.alert(curThemeTypeEmessage.value, '说明', {
+    // if you want to disable its autofocus
+    // autofocus: false,
+    confirmButtonText: '确定',
+    callback: (action: Action) => {
+      ElMessage({
+        type: 'info',
+        message: `action: ${action}`,
+      })
+    },
+  })
+}
 
 const submit=async ()=> {
   //console.log(img.value)
@@ -266,10 +297,10 @@ function seek(num:number[]) {
       </el-col>
 
       <el-col :span="4"  >
-        聊天消息透明度(Alpha):  <span class="ops-clo"> {{ alpha}} </span> <br/>
-        目标突出色(Hue):<span class="ops-clo" > {{ colors }} </span><br/>
-        饱和度(Saturation): <span class="ops-clo">{{ targetS }} </span><br/>
-        亮度( Lightness): <span class="ops-clo">{{ targetL }} </span>
+        <el-text >聊天消息透明度(Alpha):</el-text>  <span class="ops-clo"> {{ alpha}} </span> <br/>
+        <el-text >目标突出色(Hue):</el-text> <span class="ops-clo" > {{ colors }} </span><br/>
+        <el-text :class="{deleteLine:isActive }"> 饱和度(Saturation):</el-text> <span class="ops-clo">{{ targetS }} </span><br/>
+        <el-text :class="{deleteLine:isActive }"> 亮度( Lightness):</el-text>  <span class="ops-clo">{{ targetL }} </span>
       </el-col>
 
     </el-row>
@@ -299,7 +330,8 @@ function seek(num:number[]) {
                      :value="e" />
         </el-select>
       </el-col>
-      <el-col :span="5"></el-col>
+      <el-col :span="2"><el-button @click="expressType" plain>{{showThemeType}}</el-button></el-col>
+      <el-col :span="3"></el-col>
       <el-col :span="8">
         <div class="imagePicker">
           <input   @change="previewFiles($event)"  type="file" />
@@ -395,6 +427,8 @@ function seek(num:number[]) {
 }
 .overPadding{
   padding-top: 20px;
-
+}
+.deleteLine{
+  text-decoration: line-through
 }
 </style>
