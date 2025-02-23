@@ -203,12 +203,12 @@ const expressType=()=>{
     // if you want to disable its autofocus
     // autofocus: false,
     confirmButtonText: '确定',
-    callback: (action: Action) => {
-      ElMessage({
-        type: 'info',
-        message: `action: ${action}`,
-      })
-    },
+    // callback: (action: Action) => {
+    //   ElMessage({
+    //     type: 'info',
+    //     message: `action: ${action}`,
+    //   })
+    // },
   })
 }
 
