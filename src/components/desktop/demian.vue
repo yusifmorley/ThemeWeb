@@ -6,21 +6,7 @@ import {Moon, Sunny} from "@element-plus/icons-vue";
 import { useDark, useToggle } from '@vueuse/core'
 import {themeChannel} from "@/config/theme-constant.js";
 
-const isDark = useDark({
-  selector: 'html',
-  attribute: 'class',
-  valueDark: 'light',
-  valueLight: 'dark'
-})
-const toggle = useToggle(isDark)
-
 const darken=ref(false)
-
-watch(darken,(o,n)=>{
-  toggle()
-})
-
-
 let  router = useRouter();
 let theme_type=ref("3")
 
@@ -142,9 +128,10 @@ watch(theme_type,async (n,_)=>{
 }
 
 .el-main{
+  min-height: 90vh;
   background-color: var(--th-main);
   overflow: hidden;
-   padding-top: 10px;
+  padding-top: 10px;
 }
 
 .el-footer{

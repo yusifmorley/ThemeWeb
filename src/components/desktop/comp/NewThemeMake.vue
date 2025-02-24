@@ -99,7 +99,7 @@ let pbase;
 const optionList=ref()
 
 watch(moudle,(newM)=>{
- curThemeType.value=themeMap.get(newM)
+  curThemeType.value=themeMap.get(kind.value=='1'?"D"+newM:newM)
 })
 
 
